@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum EventCategory {
+  strategy
+  family
+  party
+  roleplay
+  cooperative
+  card
+  dice
+  dungeon
+}
+
+enum EventStatus {
+  upcoming
+  ongoing
+  full
+  cancelled
+  completed
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  cancelled
+  waitlist
+}
+
+model Event {
+  id               String        @id @default(cuid())
+  title            String
+  description      String        @db.Text
+  shortDescription String
+  category         EventCategory
+  status           EventStatus   @default(upcoming)
+  startDate        DateTime
+  endDate          DateTime
+  maxPlayers       Int
+  minPlayers       Int           @default(2)
+  currentPlayers   Int           @default(0)
+  price            Int           @default(0) // in cents
+  imageUrl         String?
+  hostName         String
+  hostAvatar       String?
+  gameName         String
+  difficulty       Int           @default(3) // 1-5
+  tags             String[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  bookings Booking[]
+
+  @@index([status, startDate])
+  @@index([category])
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+  eventId       String
+  userId        String
+  status        BookingStatus @default(pending)
+  numberOfSeats Int           @default(1)
+  totalPrice    Int           // in cents
+  notes         String?       @db.Text
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  event   Event       @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  profile UserProfile @relation(fields: [userId], references: [clerkId])
+
+  @@unique([eventId, userId])
+  @@index([userId])
+}
+
+model UserProfile {
+  id                 String          @id @default(cuid())
+  clerkId            String          @unique
+  email              String          @unique
+  displayName        String
+  avatarUrl          String?
+  bio                String?         @db.Text
+  favoriteCategories EventCategory[]
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  bookings Booking[]
+}
