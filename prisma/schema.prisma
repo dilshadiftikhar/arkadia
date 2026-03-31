@@ -8,88 +8,53 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-enum EventCategory {
-  strategy
-  family
-  party
-  roleplay
-  cooperative
-  card
-  dice
-  dungeon
-}
-
-enum EventStatus {
-  upcoming
-  ongoing
-  full
-  cancelled
-  completed
-}
-
-enum BookingStatus {
-  pending
-  confirmed
-  cancelled
-  waitlist
+model User {
+  id          String    @id @default(cuid())
+  clerkId     String    @unique
+  email       String    @unique
+  name        String?
+  avatarUrl   String?
+  bio         String?
+  level       String    @default("debutant") // debutant | intermediaire | confirme
+  preferences Json?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  bookings    Booking[]
 }
 
 model Event {
-  id               String        @id @default(cuid())
-  title            String
-  description      String        @db.Text
-  shortDescription String
-  category         EventCategory
-  status           EventStatus   @default(upcoming)
-  startDate        DateTime
-  endDate          DateTime
-  maxPlayers       Int
-  minPlayers       Int           @default(2)
-  currentPlayers   Int           @default(0)
-  price            Int           @default(0) // in cents
-  imageUrl         String?
-  hostName         String
-  hostAvatar       String?
-  gameName         String
-  difficulty       Int           @default(3) // 1-5
-  tags             String[]
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-
-  bookings Booking[]
-
-  @@index([status, startDate])
-  @@index([category])
+  id              String    @id @default(cuid())
+  title           String
+  description     String
+  shortDesc       String    // 1 phrase pour les cards
+  scheduledAt     DateTime
+  durationMinutes Int       @default(120)
+  capacity        Int
+  tableSize       Int       @default(4)
+  isRecurring     Boolean   @default(false)
+  recurrenceRule  String?
+  status          String    @default("open") // open | full | cancelled
+  level           String    @default("tous") // tous | debutant | intermediaire | confirme
+  animatorName    String?
+  animatorNote    String?
+  imageUrl        String?
+  tags            String[]
+  price           Int       @default(0) // en centimes, 0 = gratuit
+  bookings        Booking[]
+  createdAt       DateTime  @default(now())
 }
 
 model Booking {
-  id            String        @id @default(cuid())
-  eventId       String
+  id            String   @id @default(cuid())
   userId        String
-  status        BookingStatus @default(pending)
-  numberOfSeats Int           @default(1)
-  totalPrice    Int           // in cents
-  notes         String?       @db.Text
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  eventId       String
+  status        String   @default("confirmed") // confirmed | waitlist | cancelled
+  groupSize     Int      @default(1)
+  isOpenTable   Boolean  @default(false)
+  specialNote   String?
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id])
+  event         Event    @relation(fields: [eventId], references: [id])
 
-  event   Event       @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  profile UserProfile @relation(fields: [userId], references: [clerkId])
-
-  @@unique([eventId, userId])
-  @@index([userId])
-}
-
-model UserProfile {
-  id                 String          @id @default(cuid())
-  clerkId            String          @unique
-  email              String          @unique
-  displayName        String
-  avatarUrl          String?
-  bio                String?         @db.Text
-  favoriteCategories EventCategory[]
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-
-  bookings Booking[]
+  @@unique([userId, eventId])
 }
