@@ -21,7 +21,7 @@ async function main() {
           "Votre première fois ici ? On s'occupe de tout : jeux simples, bonne ambiance, zéro prise de tête.",
         description: `Vous n'avez jamais mis les pieds dans un café-jeux ? C'est exactement pour vous que cette soirée existe.
 
-Théo vous accueille avec quelques jeux d'initiation soigneusement choisis : des règles en 5 minutes, du rire garanti, et une première victoire possible même en débutant complet.
+Dilshad vous accueille avec quelques jeux d'initiation soigneusement choisis : des règles en 5 minutes, du rire garanti, et une première victoire possible même en débutant complet.
 
 Au programme : Concept, Dixit, Skull, et peut-être Azul si on a le temps. On joue par petites tables, on tourne, on découvre.
 
@@ -32,9 +32,9 @@ Venez seul, avec un ami, ou en groupe — vous repartirez avec l'envie de reveni
         tableSize: 5,
         status: "open",
         level: "debutant",
-        animatorName: "Théo",
+        animatorName: "Dilshad",
         animatorNote:
-          "Théo sera là dès 18h45 pour vous accueillir et vous orienter vers la bonne table.",
+          "Dilshad sera là dès 18h45 pour vous accueillir et vous orienter vers la bonne table.",
         tags: ["débutant", "découverte", "initiation", "convivial"],
         price: 0,
       },
@@ -42,7 +42,7 @@ Venez seul, avec un ami, ou en groupe — vous repartirez avec l'envie de reveni
         title: "Afterwork — Jeux Courts & Apéro",
         shortDesc:
           "Finissez la semaine comme il se doit : une bière, des dés, et des collègues qui deviennent rivaux.",
-        description: `Jeudi soir, 18h30. La semaine est longue, le bureau pèse. Sophie vous propose l'antidote parfait.
+        description: `Jeudi soir, 18h30. La semaine est longue, le bureau pèse. Arthur vous propose l'antidote parfait.
 
 Des jeux rapides, nerveux, et souvent hilarants — Sushi Go, Love Letter, Cockroach Poker, Skull & Roses. Des parties de 15 à 30 minutes, qu'on enchaîne sans se lasser.
 
@@ -55,19 +55,19 @@ Consommation non incluse, mais la carte des boissons est là pour ça.`,
         tableSize: 4,
         status: "open",
         level: "tous",
-        animatorName: "Sophie",
+        animatorName: "Arthur",
         animatorNote:
-          "Sophie circule entre les tables toute la soirée pour lancer de nouvelles parties.",
+          "Arthur circule entre les tables toute la soirée pour lancer de nouvelles parties.",
         tags: ["apéro", "afterwork", "jeux courts", "décontracté"],
         price: 0,
       },
       {
         title: "Initiation Wingspan — L'Ornithologie Ludique",
         shortDesc:
-          "Wingspan en 3h avec Théo : apprenez en jouant, et tombez amoureux du plus beau jeu de l'année.",
+          "Wingspan en 3h avec Dilshad : apprenez en jouant, et tombez amoureux du plus beau jeu de l'année.",
         description: `Vous avez vu Wingspan partout — sur Instagram, dans les tops de fin d'année, dans les vitrines des boutiques. Mais les règles vous semblent complexes ?
 
-Théo a initié plus de 200 joueurs à ce jeu. Il connaît exactement où ça coince, ce qu'on oublie, et comment rendre l'apprentissage fluide et agréable.
+Dilshad a initié plus de 200 joueurs à ce jeu. Il connaît exactement où ça coince, ce qu'on oublie, et comment rendre l'apprentissage fluide et agréable.
 
 Ce soir, on commence ensemble à zéro. Tableau blanc, dés de nourriture, cartes oiseaux sublimes. Vous apprendrez les mécaniques partie après partie, et vous repartirez capable de l'enseigner à votre tour.
 
@@ -78,9 +78,9 @@ Places limitées à 12 pour que chaque joueur ait l'attention qu'il mérite.`,
         tableSize: 4,
         status: "full",
         level: "debutant",
-        animatorName: "Théo",
+        animatorName: "Dilshad",
         animatorNote:
-          "Apportez votre curiosité, Théo apporte tout le reste. Aucun matériel nécessaire.",
+          "Apportez votre curiosité, Dilshad apporte tout le reste. Aucun matériel nécessaire.",
         tags: ["débutant", "initiation", "nature", "engine-building"],
         price: 800,
       },
@@ -90,7 +90,7 @@ Places limitées à 12 pour que chaque joueur ait l'attention qu'il mérite.`,
           "4 tables, 16 joueurs, 1 seul vainqueur. Que le meilleur négociateur l'emporte.",
         description: `Catan. Le classique absolu. Celui qui a ruiné des amitiés et forgé des alliances improbables depuis 1995.
 
-Sophie organise ce tournoi en deux rounds : une phase de poules où tout le monde joue une partie, puis une finale entre les 4 meilleurs scores.
+Arthur organise ce tournoi en deux rounds : une phase de poules où tout le monde joue une partie, puis une finale entre les 4 meilleurs scores.
 
 Règles officielles KOSMOS, avec quelques variantes maison annoncées avant le début. Niveau intermédiaire requis — vous devez connaître les règles de base, mais nul besoin d'être un champion.
 
@@ -101,9 +101,9 @@ Prix d'entrée : 12€ incluant la réservation de la table et une boisson offer
         tableSize: 4,
         status: "open",
         level: "intermediaire",
-        animatorName: "Sophie",
+        animatorName: "Arthur",
         animatorNote:
-          "Arbitre neutre : Sophie ne joue pas et reste disponible pour régler tout litige de règles.",
+          "Arbitre neutre : Arthur ne joue pas et reste disponible pour régler tout litige de règles.",
         tags: ["compétition", "tournoi", "stratégie", "négociation"],
         price: 1200,
       },
@@ -115,7 +115,7 @@ Prix d'entrée : 12€ incluant la réservation de la table et une boisson offer
           "Une soirée entière dédiée aux jeux où l'équipe gagne — ou perd — ensemble.",
         description: `Pandemic, Arkham Horror, Spirit Island, Hanabi. Ce soir, on laisse la compétition au vestiaire.
 
-Théo vous guide à travers une sélection de jeux coopératifs, du plus accessible (Hanabi, Mysterium) au plus tendu (Pandemic Legacy si le groupe est chaud).
+Dilshad vous guide à travers une sélection de jeux coopératifs, du plus accessible (Hanabi, Mysterium) au plus tendu (Pandemic Legacy si le groupe est chaud).
 
 Le principe : vous formez une équipe au moment d'arriver, et vous traversez la soirée ensemble. Victoire collective, défaite collective, fous rires garantis.
 
@@ -126,9 +126,9 @@ Parfait pour les groupes d'amis qui veulent jouer "en équipe contre le jeu" plu
         tableSize: 5,
         status: "open",
         level: "tous",
-        animatorName: "Théo",
+        animatorName: "Dilshad",
         animatorNote:
-          "Théo adapte le niveau de difficulté en temps réel selon l'expérience de chaque table.",
+          "Dilshad adapte le niveau de difficulté en temps réel selon l'expérience de chaque table.",
         tags: ["coopératif", "soirée", "aventure", "équipe"],
         price: 800,
       },
@@ -138,7 +138,7 @@ Parfait pour les groupes d'amis qui veulent jouer "en équipe contre le jeu" plu
           "Samedi matin en famille : des jeux qui plaisent aux enfants ET aux adultes, promis.",
         description: `10h du matin, les enfants sont réveillés depuis 6h et ont déjà tout retourné. Et si on jouait ensemble ?
 
-Sophie a sélectionné des jeux qui fonctionnent pour les 6-10 ans mais qui n'ennuient pas les adultes : Jungle Speed Kids, Dobble, King of Tokyo, Ticket to Ride First Journey.
+Arthur a sélectionné des jeux qui fonctionnent pour les 6-10 ans mais qui n'ennuient pas les adultes : Jungle Speed Kids, Dobble, King of Tokyo, Ticket to Ride First Journey.
 
 Format détendu, tables ouvertes, vous pouvez arriver à partir de 10h. On termine vers 13h avec une pause collation à mi-parcours.
 
@@ -149,9 +149,9 @@ Entrée libre. Les enfants de moins de 6 ans sont les bienvenus accompagnés.`,
         tableSize: 4,
         status: "open",
         level: "tous",
-        animatorName: "Sophie",
+        animatorName: "Arthur",
         animatorNote:
-          "Sophie adapte les règles pour les plus jeunes sans gâcher le plaisir des adultes.",
+          "Arthur adapte les règles pour les plus jeunes sans gâcher le plaisir des adultes.",
         tags: ["famille", "enfants", "accessible", "weekend"],
         price: 0,
       },
@@ -163,7 +163,7 @@ Entrée libre. Les enfants de moins de 6 ans sont les bienvenus accompagnés.`,
           "Twilight Imperium, Brass, Terra Mystica : une soirée pour les joueurs qui veulent vraiment se creuser la tête.",
         description: `Vous connaissez déjà les classiques. Vous voulez aller plus loin. Cette soirée est pour vous.
 
-Théo propose un format "atelier" : on choisit ensemble en début de soirée le jeu principal de la nuit, et on le joue dans les règles — sans simplification, avec toute sa profondeur stratégique.
+Dilshad propose un format "atelier" : on choisit ensemble en début de soirée le jeu principal de la nuit, et on le joue dans les règles — sans simplification, avec toute sa profondeur stratégique.
 
 Jeux au menu selon les inscrits : Brass Birmingham, Terra Mystica, Through the Ages, ou Twilight Imperium si on est assez nombreux et courageux.
 
@@ -174,9 +174,9 @@ Niveau confirmé requis. Si vous avez déjà des parties de Wingspan ou Catan de
         tableSize: 4,
         status: "full",
         level: "confirme",
-        animatorName: "Théo",
+        animatorName: "Dilshad",
         animatorNote:
-          "Théo envoie un sondage 3 jours avant pour choisir le jeu principal — répondez vite.",
+          "Dilshad envoie un sondage 3 jours avant pour choisir le jeu principal — répondez vite.",
         tags: ["experts", "stratégie", "complexe", "immersif"],
         price: 1200,
       },
@@ -186,7 +186,7 @@ Niveau confirmé requis. Si vous avez déjà des parties de Wingspan ou Catan de
         title: "Afterwork Léger — Mardi Détente",
         shortDesc:
           "Rien de prise de tête : des jeux malins et rapides pour décompresser en milieu de semaine.",
-        description: `Pas besoin d'attendre le jeudi. Mardi soir, Sophie ouvre Arkadia pour une formule ultra-décontractée.
+        description: `Pas besoin d'attendre le jeudi. Mardi soir, Arthur ouvre Arkadia pour une formule ultra-décontractée.
 
 Au programme : jeux de 15-20 minutes, règles expliquées en 2 minutes chrono, et une ambiance brasserie-salon où on peut aussi juste venir boire quelque chose et regarder jouer.
 
@@ -199,9 +199,9 @@ Entrée libre, venez comme vous êtes, amenez qui vous voulez.`,
         tableSize: 5,
         status: "open",
         level: "tous",
-        animatorName: "Sophie",
+        animatorName: "Arthur",
         animatorNote:
-          "Sophie est là pour lancer les parties mais la soirée reste très libre — venez à votre rythme.",
+          "Arthur est là pour lancer les parties mais la soirée reste très libre — venez à votre rythme.",
         tags: ["apéro", "afterwork", "léger", "jeux courts", "accessible"],
         price: 0,
       },
