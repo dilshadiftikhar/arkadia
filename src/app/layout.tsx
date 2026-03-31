@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning
         className={`${cinzel.variable} ${crimsonText.variable} ${inter.variable}`}
       >
-        <body className="font-sans antialiased">
+        <body className="font-sans antialiased bg-ink-950 hero-gradient">
           <ReactQueryProvider>
             {children}
           </ReactQueryProvider>

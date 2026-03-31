@@ -1,110 +1,150 @@
 import Link from "next/link";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { OpenTableBadge } from "@/components/booking/OpenTableBadge";
-import { formatDate, formatTime, formatPrice, getEventStatusLabel } from "@/lib/utils";
-import type { Event } from "@/types";
-import { Calendar, Clock, Users } from "lucide-react";
+import { Calendar, Users } from "lucide-react";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 
-interface EventCardProps {
-  event: Event;
+export type EventCardData = {
+  id: string;
+  title: string;
+  shortDesc: string;
+  scheduledAt: string; // ISO string (serialized from server)
+  durationMinutes: number;
+  capacity: number;
+  status: string; // open | full | cancelled
+  level: string;  // tous | debutant | intermediaire | confirme
+  animatorName: string | null;
+  tags: string[];
+  price: number; // centimes
+  bookedSeats: number;
+  hasOpenTable: boolean;
+};
+
+const LEVEL_BAND: Record<string, string> = {
+  debutant:      "bg-forest-base",
+  intermediaire: "bg-copper-dark",
+  confirme:      "bg-ink-500",
+  tous:          "bg-copper-gradient",
+};
+
+const LEVEL_BADGE: Record<string, string> = {
+  debutant:      "badge-level-beginner",
+  intermediaire: "badge-level-mid",
+  confirme:      "badge-level-expert",
+  tous:          "badge-all",
+};
+
+const LEVEL_LABEL: Record<string, string> = {
+  debutant:      "Débutant",
+  intermediaire: "Intermédiaire",
+  confirme:      "Confirmé",
+  tous:          "Tous niveaux",
+};
+
+function formatEventDate(isoString: string): string {
+  const date = new Date(isoString);
+  const str = format(date, "EEE d MMM · HH'h'mm", { locale: fr });
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const CATEGORY_LABELS: Record<string, string> = {
-  strategy: "Stratégie",
-  family: "Famille",
-  party: "Party Game",
-  roleplay: "Jeu de rôle",
-  cooperative: "Coopératif",
-  card: "Cartes",
-  dice: "Dés",
-  dungeon: "Dungeon",
-};
+export function EventCard({ event }: { event: EventCardData }) {
+  const date = new Date(event.scheduledAt);
+  const now = new Date();
+  const isPast = date < now;
+  const isFull = event.status === "full" || event.bookedSeats >= event.capacity;
+  const pct = Math.min((event.bookedSeats / event.capacity) * 100, 100);
 
-const DIFFICULTY_LABELS: Record<number, string> = {
-  1: "Débutant",
-  2: "Facile",
-  3: "Intermédiaire",
-  4: "Expert",
-  5: "Maître",
-};
+  const fillClass = isFull
+    ? "full"
+    : pct >= 70
+    ? "nearly-full"
+    : "";
 
-export function EventCard({ event }: EventCardProps) {
-  const statusInfo = getEventStatusLabel(event.status);
+  const bandClass = LEVEL_BAND[event.level] ?? "bg-copper-base";
+  const badgeClass = LEVEL_BADGE[event.level] ?? "badge-all";
+  const levelLabel = LEVEL_LABEL[event.level] ?? event.level;
 
   return (
-    <Link href={`/events/${event.id}`} className="block group">
-      <Card className="h-full transition-all duration-200 hover:shadow-md hover:border-border group-hover:bg-card/80 overflow-hidden">
-        {/* Image placeholder */}
-        <div className="relative h-40 bg-gradient-to-br from-arkadia-crimson-900/60 to-arkadia-dark-300 overflow-hidden">
-          {event.imageUrl ? (
-            <img
-              src={event.imageUrl}
-              alt={event.title}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <span className="text-4xl opacity-30">🎲</span>
-            </div>
+    <Link href={`/events/${event.id}`} className="card-event block">
+      {/* Level color band */}
+      <div className={`h-1 w-full ${bandClass}`} />
+
+      {/* Body */}
+      <div className="p-5">
+        {/* Date */}
+        <div className="flex items-center gap-1.5 text-copper-light text-sm font-sans">
+          <Calendar size={14} className="shrink-0" />
+          <span>{formatEventDate(event.scheduledAt)}</span>
+        </div>
+
+        {/* Title */}
+        <h3 className="font-cinzel text-lg font-semibold text-parchment mt-1 leading-tight">
+          {event.title}
+        </h3>
+
+        {/* Short desc */}
+        <p className="font-sans text-sm text-parchment-dim mt-1 line-clamp-2">
+          {event.shortDesc}
+        </p>
+
+        {/* Badges */}
+        <div className="mt-3 flex gap-2 flex-wrap">
+          <span className={badgeClass}>{levelLabel}</span>
+          {event.tags.slice(0, 2).map((tag) => (
+            <span key={tag} className="badge bg-ink-700 text-parchment-dim">
+              {tag}
+            </span>
+          ))}
+          {event.hasOpenTable && (
+            <span className="badge-open-table">
+              <Users size={10} className="mr-1" />
+              Table ouverte
+            </span>
           )}
-          {/* Status badge overlay */}
-          <div className="absolute top-2 right-2">
-            <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>
+        </div>
+
+        {/* Capacity */}
+        <div className="mt-4">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-xs text-parchment-muted">
+              {event.bookedSeats} / {event.capacity} places
+            </span>
+            {isFull && (
+              <span className="badge-full">Complet</span>
+            )}
+          </div>
+          <div className="capacity-bar">
+            <div
+              className={`capacity-fill ${fillClass}`}
+              style={{ width: `${pct}%` }}
+            />
           </div>
         </div>
 
-        <CardHeader className="pb-2">
-          <div className="flex items-start justify-between gap-2">
-            <div>
-              <h3 className="font-semibold text-card-foreground leading-tight line-clamp-2">
-                {event.title}
-              </h3>
-              <p className="text-xs text-muted-foreground mt-0.5">{event.gameName}</p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-1 mt-1">
-            <Badge variant="outline" className="text-xs">
-              {CATEGORY_LABELS[event.category] ?? event.category}
-            </Badge>
-            <Badge variant="outline" className="text-xs">
-              {DIFFICULTY_LABELS[event.difficulty] ?? `Niv. ${event.difficulty}`}
-            </Badge>
-          </div>
-        </CardHeader>
-
-        <CardContent className="pb-2">
-          <p className="text-sm text-muted-foreground line-clamp-2">
-            {event.shortDescription}
-          </p>
-
-          <div className="mt-3 space-y-1.5 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1.5">
-              <Calendar className="h-3.5 w-3.5 shrink-0" />
-              <span>{formatDate(event.startDate)}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Clock className="h-3.5 w-3.5 shrink-0" />
-              <span>
-                {formatTime(event.startDate)} – {formatTime(event.endDate)}
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Users className="h-3.5 w-3.5 shrink-0" />
-              <span>
-                {event.currentPlayers}/{event.maxPlayers} joueurs
-              </span>
-            </div>
-          </div>
-        </CardContent>
-
-        <CardFooter className="flex items-center justify-between pt-2">
-          <span className="font-semibold text-sm text-foreground">
-            {formatPrice(event.price)}
+        {/* Footer */}
+        <div className="mt-4 flex justify-between items-center">
+          <span className="font-cinzel text-copper-light font-semibold">
+            {event.price === 0 ? "Gratuit" : `${event.price / 100} €`}
           </span>
-          <OpenTableBadge current={event.currentPlayers} max={event.maxPlayers} />
-        </CardFooter>
-      </Card>
+          {isPast ? (
+            <span className="text-sm text-parchment-muted">Terminé</span>
+          ) : isFull ? (
+            <span className="btn-secondary text-sm py-2 px-4">
+              Liste d&apos;attente
+            </span>
+          ) : (
+            <span className="btn-primary text-sm py-2 px-4">
+              Je réserve →
+            </span>
+          )}
+        </div>
+
+        {/* Animator */}
+        {event.animatorName && (
+          <p className="mt-3 text-xs text-parchment-muted italic">
+            Animé par {event.animatorName}
+          </p>
+        )}
+      </div>
     </Link>
   );
 }

@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
-import type { ApiResponse, Booking } from "@/types";
 
 export async function GET() {
   try {
@@ -19,10 +18,7 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
 
-    const response: ApiResponse<Booking[]> = {
-      data: bookings as unknown as Booking[],
-    };
-    return NextResponse.json(response);
+    return NextResponse.json({ data: bookings });
   } catch (error) {
     console.error("[GET /api/bookings]", error);
     return NextResponse.json(
@@ -41,7 +37,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { eventId, numberOfSeats = 1, notes } = body;
+    const { eventId, groupSize = 1, specialNote, isOpenTable = false } = body;
 
     if (!eventId) {
       return NextResponse.json(
@@ -50,52 +46,46 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const event = await db.event.findUnique({ where: { id: eventId } });
+    const event = await db.event.findUnique({
+      where: { id: eventId },
+      include: {
+        bookings: {
+          where: { status: "confirmed" },
+          select: { groupSize: true },
+        },
+      },
+    });
 
     if (!event) {
-      return NextResponse.json(
-        { error: "Événement introuvable." },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Événement introuvable." }, { status: 404 });
     }
 
-    if (event.currentPlayers + numberOfSeats > event.maxPlayers) {
+    const bookedSeats = event.bookings.reduce((sum, b) => sum + b.groupSize, 0);
+    if (event.status === "full" || bookedSeats + groupSize > event.capacity) {
       return NextResponse.json(
         { error: "Plus assez de places disponibles." },
         { status: 409 }
       );
     }
 
-    const totalPrice = event.price * numberOfSeats;
+    const booking = await db.booking.create({
+      data: {
+        eventId,
+        userId,
+        groupSize,
+        specialNote,
+        isOpenTable,
+        status: "confirmed",
+      },
+      include: { event: true },
+    });
 
-    const [booking] = await db.$transaction([
-      db.booking.create({
-        data: {
-          eventId,
-          userId,
-          numberOfSeats,
-          totalPrice,
-          notes,
-          status: "confirmed",
-        },
-        include: { event: true },
-      }),
-      db.event.update({
-        where: { id: eventId },
-        data: { currentPlayers: { increment: numberOfSeats } },
-      }),
-    ]);
-
-    const response: ApiResponse<Booking> = {
-      data: booking as unknown as Booking,
-      message: "Réservation confirmée !",
-    };
-    return NextResponse.json(response, { status: 201 });
+    return NextResponse.json(
+      { data: booking, message: "Réservation confirmée !" },
+      { status: 201 }
+    );
   } catch (error: unknown) {
-    if (
-      error instanceof Error &&
-      error.message.includes("Unique constraint")
-    ) {
+    if (error instanceof Error && error.message.includes("Unique constraint")) {
       return NextResponse.json(
         { error: "Vous avez déjà une réservation pour cet événement." },
         { status: 409 }
