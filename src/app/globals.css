@@ -1,94 +1,206 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }
 
 @layer base {
-  .theme {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
-  }
+  /* shadcn CSS variable overrides — Arkadia dark theme */
   :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    --background:            0 2% 4%;       /* #090a0a */
+    --foreground:            40 25% 93%;    /* #f5f0e8 */
+    --card:                  30 52% 8%;     /* #1a1209 */
+    --card-foreground:       40 25% 93%;
+    --popover:               40 20% 11%;    /* #242118 */
+    --popover-foreground:    40 25% 93%;
+    --primary:               19 47% 42%;   /* #a2573a */
+    --primary-foreground:    40 25% 93%;
+    --secondary:             30 52% 8%;
+    --secondary-foreground:  40 25% 93%;
+    --muted:                 0 0% 19%;     /* #303031 */
+    --muted-foreground:      0 0% 55%;     /* #8c8c8d */
+    --accent:                19 47% 42%;
+    --accent-foreground:     40 25% 93%;
+    --destructive:           0 68% 30%;    /* #7f1d1d */
+    --destructive-foreground: 40 25% 93%;
+    --border:                0 0% 19%;     /* #303031 */
+    --input:                 40 20% 11%;   /* #242118 */
+    --ring:                  19 47% 42%;   /* #a2573a */
+    --radius:                0.5rem;
+    --sidebar:               40 20% 11%;
+    --sidebar-foreground:    40 25% 93%;
+    --sidebar-primary:       19 47% 42%;
+    --sidebar-primary-foreground: 40 25% 93%;
+    --sidebar-accent:        0 0% 19%;
+    --sidebar-accent-foreground: 40 25% 93%;
+    --sidebar-border:        0 0% 19%;
+    --sidebar-ring:          19 47% 42%;
   }
+
+  /* Force dark mode globally — Arkadia est toujours sombre */
   .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --background:            0 2% 4%;
+    --foreground:            40 25% 93%;
+    --card:                  30 52% 8%;
+    --card-foreground:       40 25% 93%;
+    --popover:               40 20% 11%;
+    --popover-foreground:    40 25% 93%;
+    --primary:               19 47% 42%;
+    --primary-foreground:    40 25% 93%;
+    --secondary:             30 52% 8%;
+    --secondary-foreground:  40 25% 93%;
+    --muted:                 0 0% 19%;
+    --muted-foreground:      0 0% 55%;
+    --accent:                19 47% 42%;
+    --accent-foreground:     40 25% 93%;
+    --destructive:           0 68% 30%;
+    --destructive-foreground: 40 25% 93%;
+    --border:                0 0% 19%;
+    --input:                 40 20% 11%;
+    --ring:                  19 47% 42%;
   }
-  * {
-    @apply border-border outline-ring/50;
-  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: #090a0a;
+    color: #f5f0e8;
+    font-family: var(--font-inter), 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
   }
-  html {
-    @apply font-sans;
+
+  h1, h2, h3 {
+    font-family: var(--font-cinzel), 'Cinzel', serif;
+    color: #f5f0e8;
+    letter-spacing: 0.02em;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar       { width: 6px; }
+  ::-webkit-scrollbar-track { background: #090a0a; }
+  ::-webkit-scrollbar-thumb { background: #303031; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a2573a; }
+
+  /* Text selection */
+  ::selection { background: rgba(162, 87, 58, 0.3); color: #f5f0e8; }
+}
+
+@layer components {
+  /* ── BOUTONS ─────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-md font-sans font-semibold text-sm;
+    @apply text-parchment bg-copper-base border border-copper-base;
+    @apply transition-all duration-200;
+    @apply hover:bg-copper-dark hover:border-copper-dark hover:shadow-copper-sm;
+    @apply active:scale-95;
+    @apply disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-copper-base;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-md font-sans font-medium text-sm;
+    @apply text-copper-light bg-transparent border border-copper-muted;
+    @apply transition-all duration-200;
+    @apply hover:border-copper-base hover:text-copper-light hover:bg-copper-base/10;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-md font-sans font-medium text-sm;
+    @apply text-parchment-dim bg-transparent;
+    @apply transition-all duration-200;
+    @apply hover:text-parchment hover:bg-ink-700;
+  }
+
+  /* ── CARDS ───────────────────────────────────────────── */
+  .card-event {
+    @apply relative rounded-lg border border-ink-600 bg-ink-800 overflow-hidden;
+    @apply transition-all duration-300 cursor-pointer;
+    @apply hover:border-copper-base hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+
+  .card-event::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-0.5 bg-copper-gradient opacity-0;
+    @apply transition-opacity duration-300;
+  }
+
+  .card-event:hover::before {
+    @apply opacity-100;
+  }
+
+  /* ── BADGES ──────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider;
+  }
+
+  .badge-level-beginner { @apply badge bg-forest-base text-copper-light; }
+  .badge-level-mid      { @apply badge bg-copper-dark/20 text-copper-base border border-copper-dark/40; }
+  .badge-level-expert   { @apply badge bg-ink-600 text-parchment-dim border border-ink-500; }
+  .badge-all            { @apply badge bg-ink-700 text-parchment-dim; }
+  .badge-open-table     { @apply badge bg-forest-light/20 text-forest-light border border-forest-light/40; }
+  .badge-full           { @apply badge bg-ink-600 text-parchment-muted; }
+
+  /* ── CAPACITY BAR ────────────────────────────────────── */
+  .capacity-bar {
+    @apply w-full h-1 rounded-full bg-ink-600 overflow-hidden;
+  }
+
+  .capacity-fill {
+    @apply h-full rounded-full bg-copper-base transition-all duration-500;
+  }
+
+  .capacity-fill.nearly-full { @apply bg-copper-dark; }
+  .capacity-fill.full        { background-color: #3f3f3f; }
+
+  /* ── SÉPARATEUR CUIVRÉ ───────────────────────────────── */
+  .separator-copper {
+    @apply relative flex items-center gap-4 my-8;
+  }
+
+  .separator-copper::before,
+  .separator-copper::after {
+    content: '';
+    @apply flex-1 h-px;
+    background: linear-gradient(to right, transparent, rgba(162, 87, 58, 0.3));
+  }
+
+  .separator-copper::after {
+    background: linear-gradient(to left, transparent, rgba(162, 87, 58, 0.3));
+  }
+
+  /* ── INPUT ───────────────────────────────────────────── */
+  .input-arkadia {
+    @apply w-full px-4 py-3 rounded-md text-sm;
+    @apply bg-ink-900 border border-ink-600 text-parchment;
+    @apply placeholder:text-parchment-muted;
+    @apply focus:outline-none focus:border-copper-base focus:ring-1 focus:ring-copper-base/30;
+    @apply transition-colors duration-200;
+  }
+
+  /* ── HERO GRADIENT ───────────────────────────────────── */
+  .hero-gradient {
+    background:
+      radial-gradient(ellipse at top, rgba(162, 87, 58, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(0, 66, 37, 0.06) 0%, transparent 50%),
+      #090a0a;
+  }
+
+  /* ── SKELETON LOADER ─────────────────────────────────── */
+  .skeleton {
+    @apply rounded bg-ink-700;
+    background: linear-gradient(90deg, #1a1209 25%, #242118 50%, #1a1209 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
   }
 }

@@ -1,42 +1,50 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { ClerkProvider } from "@clerk/nextjs";
-import { Toaster } from "@/components/ui/sonner";
-import { ReactQueryProvider } from "@/lib/query-client";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Cinzel, Crimson_Text, Inter } from 'next/font/google'
+import { ClerkProvider } from '@clerk/nextjs'
+import { Toaster } from '@/components/ui/sonner'
+import { ReactQueryProvider } from '@/lib/query-client'
+import './globals.css'
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-cinzel',
+  display: 'swap',
+})
 
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const crimsonText = Crimson_Text({
+  subsets: ['latin'],
+  weight: ['400', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-crimson',
+  display: 'swap',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
-    default: "Arkadia — Jeux de Société",
-    template: "%s | Arkadia",
+    default: 'Arkadia — Jeux de Société',
+    template: '%s | Arkadia',
   },
   description:
-    "Découvrez et réservez des soirées jeux de société à Arkadia. Stratégie, coopératif, ambiance — votre prochain événement vous attend.",
-};
+    'Découvrez et réservez des soirées jeux de société à Arkadia. Stratégie, coopératif, ambiance — votre prochain événement vous attend.',
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider>
-      <html lang="fr" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
-        >
+      <html
+        lang="fr"
+        suppressHydrationWarning
+        className={`${cinzel.variable} ${crimsonText.variable} ${inter.variable}`}
+      >
+        <body className="font-sans antialiased">
           <ReactQueryProvider>
             {children}
           </ReactQueryProvider>
@@ -44,5 +52,5 @@ export default function RootLayout({
         </body>
       </html>
     </ClerkProvider>
-  );
+  )
 }
